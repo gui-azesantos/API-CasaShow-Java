@@ -6,6 +6,7 @@ import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.gft.apicasashow.domain.Local;
@@ -23,6 +24,18 @@ public class LocalServices {
 	// LISTAR
 	public List<Local> listar() {
 		return repository.findAll();
+	}
+	
+	//LISTAR LOCAL POR NOME ASCENDENTE	
+	public List<Local> listarasc() {
+		Sort sort = Sort.by("nome").ascending();
+		return repository.findAll(sort);
+	}
+
+	//LISTAR LOCAL POR NOME DESCENDENTE
+	public List<Local> listardesc() {
+		Sort sort = Sort.by("nome").descending();
+		return repository.findAll(sort);
 	}
 
 	// BUSCAR
@@ -62,11 +75,20 @@ public class LocalServices {
 		} catch (EntityNotFoundException e) {
 			throw new LocalNaoEncontradoException("O Local não pôde ser encontrado");
 		}
-
 	}
 
 	// VERIFICAR EXISTENCIA
 	public void isExisteLocal(Local local) {
 		buscar(local.getId());
 	}
+
+	// BUSCAR POR NOME
+	public List<Local> buscarPorNome(String Nome) {
+		List<Local> local = repository.findByNomeContaining(Nome);
+		if (local == null) {
+			throw new EmptyResultDataAccessException(1);
+		}
+		return local;
+	}
+	
 }
