@@ -2,6 +2,7 @@ package com.gft.apicasashow.services;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gft.apicasashow.domain.Venda;
@@ -12,6 +13,7 @@ import com.gft.apicasashow.services.exception.VendaNaoEncontradaException;
 @Service
 public class VendaServices {
 
+	@Autowired
 	public VendasRepository repository;
 
 	// LISTAR

@@ -13,25 +13,27 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-import io.swagger.annotations.ApiModel;
-
-@ApiModel(value = "Usuário", description = "Representa um usuário")
 @Entity
 public class Usuario {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	private String nomeCompleto;
+
+	private String login;
 	
 	@Email
 	private String email;
-		
+
 	@JsonIgnore
 	private String senha;
-	
-	
+
+	@JsonInclude(Include.NON_EMPTY)
+	@OneToMany(mappedBy = "usuario")
+	@JsonIgnore
+	List<Venda> venda;
+
+	// Getters and Setters
 	public Long getId() {
 		return id;
 	}
@@ -40,14 +42,23 @@ public class Usuario {
 		this.id = id;
 	}
 
-	public String getNomeCompleto() {
-		return nomeCompleto;
+	public List<Venda> getVenda() {
+		return venda;
 	}
 
-	public void setNomeCompleto(String nomeCompleto) {
-		this.nomeCompleto = nomeCompleto;
+	public void setVenda(List<Venda> venda) {
+		this.venda = venda;
 	}
 
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	
 	public String getEmail() {
 		return email;
 	}
@@ -63,20 +74,5 @@ public class Usuario {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-
-	public List<Venda> getVenda() {
-		return venda;
-	}
-
-	public void setVenda(List<Venda> venda) {
-		this.venda = venda;
-	}
-
-	@JsonInclude(Include.NON_EMPTY)
-	@OneToMany(mappedBy = "usuario")
-	@JsonIgnore
-	List<Venda> venda;
-	
-	
 
 }

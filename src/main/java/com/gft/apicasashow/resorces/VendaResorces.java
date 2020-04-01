@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,8 @@ import io.swagger.annotations.ApiParam;
 @RequestMapping("/Vendas")
 public class VendaResorces {
 
-	public VendaServices services;
+	@Autowired
+	private VendaServices services;
 
 	// GET
 	@ApiOperation("Listar as vendas")
@@ -50,5 +52,4 @@ public class VendaResorces {
 		services.salvar(venda);
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
-	
 }
