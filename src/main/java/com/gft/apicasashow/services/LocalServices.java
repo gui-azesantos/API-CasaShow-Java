@@ -38,7 +38,7 @@ public class LocalServices {
 		return repository.findAll(sort);
 	}
 
-	// BUSCAR
+	// BUSCAR POR ID
 	public Local buscar(Long id) {
 		Local local = repository.findById(id).orElse(null);
 		if (local == null) {
