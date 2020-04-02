@@ -64,7 +64,7 @@ public class Evento {
 	public int qtdIngresso = capacidade;
 
 	@NotEmpty(message = "Estilo é obrigatório")
-	@ApiModelProperty(value = "Id do estilo", example = "20:30")
+	@ApiModelProperty(value = "Id do estilo", example = "1")
 	private String estilo;
 
 	@NotNull(message = "Preço é um campo obrigatório!")

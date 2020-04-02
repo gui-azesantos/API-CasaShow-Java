@@ -10,8 +10,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+import io.swagger.annotations.ApiModelProperty;
 
 @Entity
 public class Venda {
@@ -25,10 +28,12 @@ public class Venda {
 
 	@JsonInclude(Include.NON_NULL)
 	@JsonFormat(pattern = "dd/MM/yyyy")
+	@ApiModelProperty(value = "Data do evento", example = "31/03/2020")
 	private Date data;
 
 	@ManyToOne
 	@JoinColumn(name = "USUARIO_ID")
+	@JsonIgnoreProperties
 	private Usuario usuario;
 
 	public String getTotal() {

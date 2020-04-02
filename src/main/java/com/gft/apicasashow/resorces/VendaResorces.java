@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.gft.apicasashow.domain.Evento;
 import com.gft.apicasashow.domain.Venda;
 import com.gft.apicasashow.services.VendaServices;
 
@@ -44,11 +45,10 @@ public class VendaResorces {
 		return ResponseEntity.status(HttpStatus.OK).body(services.buscar(id));
 	}
 
-	// POST
-	@ApiOperation("Criar evento")
+	@ApiOperation("Criar venda")
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Void> salvar(
-			@ApiParam(name = "corpo", value = "Criação de uma nova evento") @Valid @RequestBody Venda venda) {
+			@ApiParam(name = "corpo", value = "Criação de um nova venda") @Valid @RequestBody Venda venda) {
 		services.salvar(venda);
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}

@@ -21,12 +21,12 @@ public class VendaServices {
 		return repository.findAll();
 	}
 
-	// SALVAR VENDA
+	// SALVAR
 	public Venda salvar(Venda venda) {
 		if (venda.getId() != null) {
 			Venda vendas = repository.findById(venda.getId()).orElse(null);
 			if (vendas != null) {
-				throw new VendaExistenteException("A Venda já existe.");
+				throw new VendaExistenteException("O Venda já existe!");
 			}
 		}
 		return repository.save(venda);
@@ -34,10 +34,15 @@ public class VendaServices {
 
 	// BUSCAR POR ID
 	public Venda buscar(Long id) {
-		Venda local = repository.findById(id).orElse(null);
-		if (local == null) {
+		Venda venda = repository.findById(id).orElse(null);
+		if (venda == null) {
 			throw new VendaNaoEncontradaException("A venda não pôde ser encontrado.");
 		}
-		return local;
+		return venda;
 	}
+	
+	// VERIFICAR EXISTENCIA
+		public void isExisteVenda(Venda venda) {
+			buscar(venda.getId());
+		}
 }

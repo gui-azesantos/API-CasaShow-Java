@@ -1,5 +1,6 @@
 package com.gft.apicasashow.handler;
 
+import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.dao.DataIntegrityViolationException;
@@ -72,13 +73,26 @@ public class ResorcesExceptionHandler {
 	}
 
 	@ExceptionHandler(DataIntegrityViolationException.class)
-	public ResponseEntity<DetalhesErro> handleLivroNaoEncontrado(DataIntegrityViolationException e,
+	public ResponseEntity<DetalhesErro> handleRequisicaoInvalida1(DataIntegrityViolationException e,
 			HttpServletRequest request) {
 
 		DetalhesErro erro = new DetalhesErro();
-		erro.setStatus(404l);
+		erro.setStatus(500l);
 		erro.setTitulo("Requisição inválida");
-		erro.setMensagemdesenvolvedor("http://erros.eventos.com/404");
+		erro.setMensagemdesenvolvedor("http://erros.eventos.com/500");
+		erro.setTimestamp(System.currentTimeMillis());
+
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
+	}
+	
+	@ExceptionHandler(EntityNotFoundException.class)
+	public ResponseEntity<DetalhesErro> handleRequisicaoInvalida2(EntityNotFoundException e,
+			HttpServletRequest request) {
+
+		DetalhesErro erro = new DetalhesErro();
+		erro.setStatus(500l);
+		erro.setTitulo("Requisição inválida");
+		erro.setMensagemdesenvolvedor("http://erros.eventos.com/500");
 		erro.setTimestamp(System.currentTimeMillis());
 
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
@@ -109,7 +123,7 @@ public class ResorcesExceptionHandler {
 		return ResponseEntity.status(HttpStatus.CONFLICT).body(erro);
 	}
 	@ExceptionHandler(VendaNaoEncontradaException.class)
-	public ResponseEntity<DetalhesErro> handleVendaNaoEncontrado(LocalNaoEncontradoException e,
+	public ResponseEntity<DetalhesErro> handleVendaNaoEncontrado(VendaNaoEncontradaException e,
 			HttpServletRequest request) {
 
 		DetalhesErro erro = new DetalhesErro();
@@ -122,7 +136,7 @@ public class ResorcesExceptionHandler {
 	}
 	
 	@ExceptionHandler(VendaExistenteException.class)
-	public ResponseEntity<DetalhesErro> handleVendaExistente(LocalExistenteException e, HttpServletRequest request) {
+	public ResponseEntity<DetalhesErro> handleVendaExistente(VendaExistenteException e, HttpServletRequest request) {
 
 		DetalhesErro erro = new DetalhesErro();
 		erro.setStatus(409l);

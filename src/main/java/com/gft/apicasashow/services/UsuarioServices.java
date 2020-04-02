@@ -7,6 +7,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.gft.apicasashow.domain.Usuario;
+import com.gft.apicasashow.domain.Venda;
 import com.gft.apicasashow.repository.UsuarioRepository;
 import com.gft.apicasashow.services.exception.UsuarioNaoEncontradoException;
 
@@ -38,6 +39,9 @@ public class UsuarioServices {
 		}
 		return usuario;
 	}
-	
 
+	// VERIFICAR EXISTENCIA
+	public void isExisteUsuario(Usuario usuario) {
+		buscar(usuario.getId());
+	}
 }
